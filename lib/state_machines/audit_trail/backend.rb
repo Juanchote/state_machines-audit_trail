@@ -39,6 +39,7 @@ class StateMachines::AuditTrail::Backend < Struct.new(:transition_class, :owner_
   # and return from here the appropriate object based on which ORM the transition_class is using
   #
   def self.create_for(transition_class, owner_class, options = {})
+    binding.pry
     if Object.const_defined?('ActiveRecord') && transition_class.ancestors.include?(::ActiveRecord::Base)
       return StateMachines::AuditTrail::Backend::ActiveRecord.new(transition_class, owner_class, options)
     elsif Object.const_defined?('Mongoid') && transition_class.ancestors.include?(::Mongoid::Document)
